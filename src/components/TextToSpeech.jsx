@@ -72,9 +72,20 @@ const TextToSpeech = () => {
   return (
     <div className="max-w-2xl mx-auto p-6 mt-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl shadow-xl transition-colors duration-300">
       <div className="w-full">
-        <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-          🗣️ Text to Speech
-        </h2>
+        <div className="flex justify-between items-center w-full px-2">
+          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            🗣️ Text to Speech
+          </h2>
+
+          {text.trim() && (
+            <button
+              onClick={() => setText("")}
+              className="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-md shadow transition-all"
+            >
+              Clear
+            </button>
+          )}
+        </div>
 
         <textarea
           className="w-full h-36 sm:h-48 p-4 text-base rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none transition-all"
@@ -82,15 +93,6 @@ const TextToSpeech = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-
-        <div className="mt-3 flex justify-end">
-          <button
-            onClick={() => setText("")}
-            className="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-md shadow transition-all"
-          >
-            Clear
-          </button>
-        </div>
 
         <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-4 items-stretch sm:items-center">
           <select
