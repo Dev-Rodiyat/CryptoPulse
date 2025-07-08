@@ -101,7 +101,7 @@ const SpeechToText = () => {
                     {!listening ? (
                         <button
                             onClick={startListening}
-                            className="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg shadow-md transition-all"
+                            className="flex-1 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg shadow-md transition-all"
                         >
                             🎙️ Start Listening
                         </button>
