@@ -119,7 +119,7 @@ const SpeechToText = () => {
                             onClick={clearTranscript}
                             className="flex-1 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg shadow-md transition-all"
                         >
-                            🧹 Clear
+                            Clear
                         </button>
                     )}
                 </div>
