@@ -7,19 +7,16 @@ const TextToSpeech = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Fetch voices on load
   useEffect(() => {
     const loadVoices = () => {
-      const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
-
-      // Load previously selected voice
-      const savedVoiceName = localStorage.getItem("selectedVoice");
-      if (savedVoiceName) {
-        const saved = availableVoices.find(v => v.name === savedVoiceName);
-        if (saved) setSelectedVoice(saved);
-      } else if (availableVoices.length) {
-        setSelectedVoice(availableVoices[0]);
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        setVoices(voices);
+        const savedVoiceName = localStorage.getItem("selectedVoice");
+        const selected = voices.find(v => v.name === savedVoiceName);
+        setSelectedVoice(selected || voices[0]);
+      } else {
+        setTimeout(loadVoices, 100);
       }
     };
 
@@ -30,11 +27,20 @@ const TextToSpeech = () => {
   const speak = () => {
     if (!text.trim()) return;
 
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = selectedVoice;
 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => {
+      setIsSpeaking(false);
+      setIsPaused(false);
+    };
+    utterance.onerror = (e) => {
+      console.error("Speech error:", e.error);
       setIsSpeaking(false);
       setIsPaused(false);
     };
@@ -48,6 +54,11 @@ const TextToSpeech = () => {
   };
 
   const resumeSpeech = () => {
+    if (!window.speechSynthesis.speaking || !isPaused) {
+      console.warn("Can't resume — either not speaking or not paused.");
+      return;
+    }
+
     window.speechSynthesis.resume();
     setIsPaused(false);
   };
@@ -59,31 +70,31 @@ const TextToSpeech = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 mt-10 bg-white dark:bg-slate-800 rounded-2xl shadow-lg transition-colors duration-300 flex items-center justify-center">
+    <div className="max-w-2xl mx-auto p-6 mt-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl shadow-xl transition-colors duration-300">
       <div className="w-full">
-        <h2 className="text-2xl font-semibold text-slate-800 dark:text-white mb-4">
+        <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
           🗣️ Text to Speech
         </h2>
 
         <textarea
-          className="w-full lg:h-60 h-32 p-4 text-base rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
-          placeholder="Enter text to speak..."
+          className="w-full h-36 sm:h-48 p-4 text-base rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none transition-all"
+          placeholder="Type something for the system to speak aloud..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
 
-        <div className="mt-2 flex justify-end">
+        <div className="mt-3 flex justify-end">
           <button
             onClick={() => setText("")}
-            className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm rounded shadow-sm"
+            className="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-md shadow transition-all"
           >
             Clear
           </button>
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+        <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-4 items-stretch sm:items-center">
           <select
-            className="w-full sm:w-auto flex-1 p-2 rounded-md border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full sm:flex-1 p-3 rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white transition-all"
             value={selectedVoice?.name || ""}
             onChange={(e) => {
               const voice = voices.find((v) => v.name === e.target.value);
@@ -101,7 +112,7 @@ const TextToSpeech = () => {
           {!isSpeaking && (
             <button
               onClick={speak}
-              className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md transition-colors"
+              className="flex-1 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg shadow-md transition-all"
             >
               🔊 Speak
             </button>
@@ -111,13 +122,13 @@ const TextToSpeech = () => {
             <>
               <button
                 onClick={pauseSpeech}
-                className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md shadow-md transition-colors"
+                className="flex-1 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg shadow-md transition-all"
               >
                 ⏸️ Pause
               </button>
               <button
                 onClick={stopSpeech}
-                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-colors"
+                className="flex-1 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md transition-all"
               >
                 🔴 Stop
               </button>
@@ -128,13 +139,13 @@ const TextToSpeech = () => {
             <>
               <button
                 onClick={resumeSpeech}
-                className="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md shadow-md transition-colors"
+                className="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-md transition-all"
               >
                 ▶️ Resume
               </button>
               <button
                 onClick={stopSpeech}
-                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-colors"
+                className="flex-1 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md transition-all"
               >
                 🔴 Stop
               </button>
@@ -143,10 +154,10 @@ const TextToSpeech = () => {
         </div>
 
         {isSpeaking && (
-          <div className="mt-4 flex justify-center">
+          <div className="mt-6 flex justify-center">
             <div className="flex items-center space-x-2 text-orange-500 animate-pulse">
               <span className="text-2xl">🔊</span>
-              <span className="text-sm font-medium">Speaking...</span>
+              <span className="text-base font-semibold">Speaking...</span>
             </div>
           </div>
         )}

@@ -62,15 +62,15 @@ const SpeechToText = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl transition-colors duration-300">
+        <div className="max-w-2xl mx-auto mt-12 p-6 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl shadow-xl transition-colors duration-300">
             <div className="w-full">
-                <h2 className="sm:text-3xl text-2xl font-semibold text-slate-800 dark:text-white mb-6 text-center">
+                <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center justify-center gap-2">
                     🎤 Speech to Text
                 </h2>
 
-                <div className="relative w-full">
+                <div className="relative">
                     <textarea
-                        className="w-full min-h-[12rem] p-4 pr-20 text-base rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                        className="w-full min-h-[12rem] p-4 pr-24 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none transition-all"
                         placeholder="Start speaking or click start..."
                         value={transcript}
                         readOnly={!isEditable}
@@ -81,15 +81,15 @@ const SpeechToText = () => {
                         <div className="absolute top-3 right-3 flex gap-2">
                             <button
                                 onClick={toggleEditable}
-                                className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 text-xl transition"
-                                title={isEditable ? 'Lock Editing' : 'Edit Text'}
+                                title={isEditable ? "Lock Editing" : "Edit Text"}
+                                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xl transition"
                             >
                                 {isEditable ? <MdDone /> : <MdEdit />}
                             </button>
                             <button
                                 onClick={copyToClipboard}
-                                className="text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 text-xl transition"
                                 title="Copy to Clipboard"
+                                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-xl transition"
                             >
                                 <IoCopyOutline />
                             </button>
@@ -97,18 +97,18 @@ const SpeechToText = () => {
                     )}
                 </div>
 
-                <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-4">
                     {!listening ? (
                         <button
                             onClick={startListening}
-                            className="w-full sm:w-auto px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md shadow-md transition"
+                            className="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg shadow-md transition-all"
                         >
                             🎙️ Start Listening
                         </button>
                     ) : (
                         <button
                             onClick={stopListening}
-                            className="w-full sm:w-auto px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-md transition"
+                            className="flex-1 px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg shadow-md transition-all"
                         >
                             ⏹️ Stop Listening
                         </button>
@@ -117,7 +117,7 @@ const SpeechToText = () => {
                     {transcript && (
                         <button
                             onClick={clearTranscript}
-                            className="w-full sm:w-auto px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md shadow-md transition"
+                            className="flex-1 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg shadow-md transition-all"
                         >
                             🧹 Clear
                         </button>
@@ -126,9 +126,9 @@ const SpeechToText = () => {
 
                 {listening && (
                     <div className="mt-6 flex justify-center">
-                        <div className="flex items-center space-x-2 text-green-500 animate-pulse">
+                        <div className="flex items-center gap-2 text-green-500 animate-pulse">
                             <span className="text-2xl">🎙️</span>
-                            <span className="text-sm font-medium">Listening...</span>
+                            <span className="text-base font-semibold">Listening...</span>
                         </div>
                     </div>
                 )}
