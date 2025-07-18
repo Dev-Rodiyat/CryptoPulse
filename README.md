@@ -1,40 +1,99 @@
-# 🎙️ VoiceVerse — TTS, STT & Translator App
+# 📊 CryptoPulse
 
-VoiceVerse is a modern web app that integrates **Text-to-Speech** and **Speech-to-Text** in one seamless experience. Designed with accessibility and usability in mind, this project is perfect for voice-enabled productivity and learning.
+CryptoPulse is a modern and responsive cryptocurrency dashboard built with React. It allows users to view live crypto market data, analyze trends, and explore top-performing coins using real-time data from the [CoinGecko API](https://www.coingecko.com/en/api).
 
-## ✨ Features
+## 🚀 Features
 
-- 🗣️ **Speech to Text (STT)**  
-  Convert your spoken words into editable text using the Web Speech API.
+- 🌐 Live crypto market data (top coins, full market overview)
+- 📈 Sparkline chart trends for price movement
+- 🔍 Coin ranking and key metrics
+- 💡 Dynamic tabbed interface (Top Coins, Market Trends, Market Overview)
+- 📊 Interactive charts using Chart.js
+- 📄 Export market data to CSV
+- ⚡ Refresh market data manually
+- 🧠 Responsive design
+- 🎯 Current route highlighting
+- 🎞️ Card animation with Framer Motion
+- 📱 Mobile navigation menu (hamburger-style)
 
-- 🔊 **Text to Speech (TTS)**  
-  Hear typed or translated text read aloud using the browser's native speech synthesis.
+---
 
-## 🧠 Tech Stack
+## 📸 Screenshots
 
-- **React** + **Vite** for fast and modern frontend development.
-- **Tailwind CSS** for responsive and elegant styling.
-- **React Icons** for interactive UI controls.
-- **Web Speech API** for STT & TTS functionality.
+![CryptoPulse landing page](image.png)
+![CryptoPulse dashboard](image-1.png)
 
-## 🛠️ How It Works
+---
 
-### Speech to Text
-- Click the microphone button to start listening.
-- Your speech will be transcribed in real-time.
-- Edit or copy the result as needed.
+## 🛠️ Tech Stack
 
-### Text to Speech
-- Type or paste text in any language.
-- Select a voice and click "Speak" to hear it read aloud.
+- **React.js**
+- **Tailwind CSS** – for rapid UI styling
+- **Axios** – for API requests
+- **React Router DOM** – for routing
+- **Chart.js + react-chartjs-2** – for charts
+- **Framer Motion** – for animations
+- **CoinGecko API** – for crypto data
 
-## 🌐 Live Demo
-> https://voice-verse-six.vercel.app
+---
 
 ## 📦 Installation
 
+Clone the repo and install dependencies:
+
 ```bash
-git clone https://github.com/Dev-Rodiyat/VoiceVerse.git
-cd voiceverse
+git clone https://github.com/Dev-Rodiyat/CryptoPulse.git
+cd CryptoPulse
 npm install
-npm run dev
+````
+
+---
+
+## ▶️ Running the App
+
+```bash
+npm start
+```
+
+The app will run locally at `http://localhost:5173`.
+
+---
+
+## 🌐 API Used
+
+This project uses the **CoinGecko Public API** for fetching cryptocurrency market data:
+
+* [Top Coins Endpoint](https://www.coingecko.com/api/documentation)
+* [Market Overview](https://api.coingecko.com/api/v3/coins/markets)
+* [Coin Chart Data](https://api.coingecko.com/api/v3/coins/{id}/market_chart)
+
+No API key is required.
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+│
+├── components/         # Reusable components (CryptoCard, ChartSection, etc.)
+├── pages/              # Page views like Dashboard
+├── services/           # API utilities (CoinGecko API functions)
+├── App.jsx             # Main app structure
+├── main.jsx            # Entry point
+```
+
+---
+
+## ✅ Upcoming Improvements (Optional)
+
+* Add coin detail page
+* Implement user authentication
+* Add light/dark theme toggle
+* Add portfolio tracker feature
+
+---
+
+## 🧑‍💻 Author
+
+* **Rodiyat Olajide** – [@yourgithub](https://github.com/Dev-Rodiyat)
