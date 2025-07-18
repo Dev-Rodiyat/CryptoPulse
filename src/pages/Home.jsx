@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-black border-t border-gray-700 text-center">
+      <section className="py-16 px-6 bg-slate-900 border-t border-gray-700 text-center">
         <h2 className="text-3xl font-semibold mb-10">Why CryptoPulse?</h2>
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto text-left">
           <div>
@@ -67,7 +67,7 @@ export default function Home() {
         <p className="text-lg mb-6">Jump into the dashboard and get live crypto data now!</p>
         <Link
           to="/dashboard"
-          className="bg-black hover:bg-gray-900 text-white px-6 py-3 rounded-full font-medium transition"
+          className="bg-slate-900 hover:bg-gray-900 text-white px-6 py-3 rounded-full font-medium transition"
         >
           Go to Dashboard →
         </Link>
