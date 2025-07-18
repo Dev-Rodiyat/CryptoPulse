@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { fetchTopCoins } from "../utils/fetchCoins";
 import { ClipLoader } from "react-spinners";
 import { fetchMarketData } from "../utils/fetchCoins";
 import { toast } from "react-toastify";
@@ -58,9 +57,7 @@ export default function MarketTable() {
 
     return (
         <div className="w-full">
-            {/* Search + Export Row */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                {/* Search */}
                 <div className="relative max-w-md w-full">
                     <FiSearch className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400" size={18} />
                     <input
@@ -80,7 +77,6 @@ export default function MarketTable() {
                     )}
                 </div>
 
-                {/* Export */}
                 <button
                     onClick={downloadCSV}
                     className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-orange-600 hover:bg-orange-700 text-white transition"
@@ -120,8 +116,8 @@ export default function MarketTable() {
                                     <td className="p-3">${coin.current_price.toLocaleString()}</td>
                                     <td
                                         className={`p-3 ${coin.price_change_percentage_24h >= 0
-                                                ? "text-green-400"
-                                                : "text-red-400"
+                                            ? "text-green-400"
+                                            : "text-red-400"
                                             }`}
                                     >
                                         {coin.price_change_percentage_24h?.toFixed(2)}%

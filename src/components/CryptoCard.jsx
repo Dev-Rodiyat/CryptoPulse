@@ -11,7 +11,7 @@ export default function CryptoCard() {
 
   const loadCoins = () => {
     setLoading(true);
-    fetchTopCoins(true) // true = include sparkline
+    fetchTopCoins(true)
       .then(data => {
         setCoins(data);
         setLoading(false);
@@ -32,7 +32,6 @@ export default function CryptoCard() {
 
   return (
     <div className="pb-10">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="sm:text-2xl font-bold text-white text-lg">🔥 Top 4 Cryptocurrencies</h2>
@@ -49,7 +48,6 @@ export default function CryptoCard() {
         </button>
       </div>
 
-      {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {coins.map((coin, i) => (
           <motion.div
@@ -59,7 +57,6 @@ export default function CryptoCard() {
             transition={{ delay: i * 0.1 }}
             className="relative bg-slate-800 p-5 rounded-xl text-center shadow hover:shadow-orange-400/20 transition hover:scale-[1.02]"
           >
-            {/* Rank badge */}
             <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded-full">
               #{coin.market_cap_rank}
             </div>
@@ -80,7 +77,6 @@ export default function CryptoCard() {
               {coin.price_change_percentage_24h.toFixed(2)}%
             </p>
 
-            {/* Sparkline */}
             {coin.sparkline_in_7d?.price && (
               <div className="mt-3">
                 <Sparklines data={coin.sparkline_in_7d.price.slice(-20)} height={40}>
@@ -94,7 +90,6 @@ export default function CryptoCard() {
               </div>
             )}
 
-            {/* Extra data */}
             <div className="text-sm text-slate-400 mt-4 space-y-1">
               <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
               <p>24h High: ${coin.high_24h.toLocaleString()}</p>
